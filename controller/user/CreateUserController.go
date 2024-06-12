@@ -22,21 +22,16 @@ func NewUserController(db *mongo.Database) *UserController {
 
 func (uc *UserController) CreateUserController(c *gin.Context) {
 	var user models.User
-	user.ProfilePicture = "profile.jpg"
 	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
-		return
-	}
-	if user.Email == "" || user.Username == "" || user.Password == "" || user.Nama == "" || user.NoTelp == "" || user.Tanggal_Lahir == "" || user.Jenis_Kelamin == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Email and password are required"})
+		c.JSON(400, gin.H{"error bind": err.Error(), "List": user})
 		return
 	}
 	hashpassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	user.Password = string(hashpassword)
 	if err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+		c.JSON(400, gin.H{"error password": err.Error()})
 		return
 	}
-	user.Password = string(hashpassword)
 	result, err := uc.collection.InsertOne(context.Background(), user)
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
