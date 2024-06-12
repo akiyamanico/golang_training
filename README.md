@@ -1,2 +1,2 @@
-Basic CRUD with BCrypt Password Hash
+Basic CRUD with BCrypt Password Hash and JWT
 Using NoSQL MongoDB as Database
