@@ -4,7 +4,10 @@ go 1.21.5
 
 require github.com/gin-contrib/cors v1.7.2
 
-require github.com/jinzhu/inflection v1.0.0 // indirect
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+)
 
 require (
 	github.com/bytedance/sonic v1.11.6 // indirect

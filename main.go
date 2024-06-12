@@ -12,7 +12,7 @@ import (
 
 func main() {
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI("mongodb+srv://akiyamanico:AYmRq3jY2AnEzRsI@cluster0.16bgzli.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").SetServerAPIOptions(serverAPI)
+	opts := options.Client().ApplyURI("mongodb+srv://akiyamanico:aFax4krWMnBQheGP@cluster0.16bgzli.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").SetServerAPIOptions(serverAPI)
 
 	client, err := mongo.Connect(context.TODO(), opts)
 	if err != nil {
