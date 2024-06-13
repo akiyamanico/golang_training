@@ -10,7 +10,12 @@ function App() {
     try {
       const response = await axios.post(
         "http://localhost:8080/usersCreate",
-        formDataToSend
+        formDataToSend,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
       );
       console.log(response.data);
     } catch (error) {
@@ -21,7 +26,7 @@ function App() {
   return (
     <div className="container mx-auto">
       <h1 className="text-3xl font-bold mb-4">User Registration</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-4">
         <input
           type="text"
           name="username"
@@ -43,12 +48,6 @@ function App() {
           className="border p-2"
           required
         />
-          <input
-            type="file"
-            name="profile_picture"
-            className="border p-2"
-            required
-          />
         <input
           type="text"
           name="nama"
@@ -74,6 +73,12 @@ function App() {
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
+        <input
+          type="file"
+          name="profile_picture"
+          className="border p-2"
+          required
+        />
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
