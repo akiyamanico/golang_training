@@ -9,7 +9,7 @@ function App() {
     
     try {
       const response = await axios.post(
-        "http://localhost:8080/usersCreate",
+        "http://localhost:8080/users/usersCreate",
         formDataToSend,
         {
           headers: {

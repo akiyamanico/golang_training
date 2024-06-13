@@ -24,11 +24,19 @@ func SetupRouter(client *mongo.Client) *gin.Engine {
 		}
 	})
 	//USER SECTION
-	r.POST("/usersCreate", userController.CreateUserController)
-	r.POST("/usersLogin", userController.UserLoginController)
-	r.PUT("/users/update/:id", userController.UpdateUserController)
-	r.DELETE("/deleteusers/:id", userController.DeleteUserController)
-	r.GET("/users", userController.GetUserController)
-	r.GET("/users/:id", userController.GetUserByIdController)
+	users := r.Group("/users")
+	{
+		users.POST("/usersCreate", userController.CreateUserController)
+		users.POST("/usersLogin", userController.UserLoginController)
+		users.PUT("/users/update/:id", userController.UpdateUserController)
+		users.DELETE("/deleteusers/:id", userController.DeleteUserController)
+		users.GET("/users", userController.GetUserController)
+		users.GET("/users/:id", userController.GetUserByIdController)
+	}
+	//PRODUK SECTIOn
+	produk := r.Group("/produk")
+	{
+		produk.POST("/tambahproduk")
+	}
 	return r
 }
