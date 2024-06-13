@@ -28,7 +28,11 @@ func (pc *ProdukController) CreateProdukController(c *gin.Context) {
 		return
 	}
 	os.MkdirAll("./uploads/produk", os.ModePerm)
-	filepath.Join("uploads/produk", file.Filename)
+	filePath := filepath.Join("uploads/produk", file.Filename)
+	if err := c.SaveUploadedFile(file, filePath); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 	if err := c.ShouldBind(&produk); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

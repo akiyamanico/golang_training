@@ -1,7 +1,8 @@
 package routes
 
 import (
-	controller "crudtraining/controller/user"
+	produkDataController "crudtraining/controller/produk"
+	userDataController "crudtraining/controller/user"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -12,7 +13,8 @@ import (
 func SetupRouter(client *mongo.Client) *gin.Engine {
 	r := gin.Default()
 	db := client.Database("golangpiji_dummyproject")
-	userController := controller.NewUserController(db)
+	userController := userDataController.NewUserController(db)
+	produkController := produkDataController.NewProdukController(db)
 	r.Use(cors.Default())
 	r.Use(func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
@@ -36,7 +38,7 @@ func SetupRouter(client *mongo.Client) *gin.Engine {
 	//PRODUK SECTIOn
 	produk := r.Group("/produk")
 	{
-		produk.POST("/tambahproduk")
+		produk.POST("/tambahproduk", produkController.CreateProdukController)
 	}
 	return r
 }
