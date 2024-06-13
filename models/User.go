@@ -8,7 +8,7 @@ type User struct {
 	Email           string                `json:"email" form:"email"`
 	Password        string                `json:"password" form:"password"`
 	Nama            string                `json:"nama" form:"nama"`
-	NoTelp          string                `json:"no_telp" form:"no_telp"`
+	No_Telp         string                `json:"no_telp" form:"no_telp"`
 	Tanggal_Lahir   string                `json:"tanggal_lahir" form:"tanggal_lahir"`
 	Jenis_Kelamin   string                `json:"jenis_kelamin" form:"jenis_kelamin"`
 	Profile_Picture *multipart.FileHeader `json:"profile_picture" form:"profile_picture"`
