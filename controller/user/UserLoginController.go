@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/context"
@@ -15,8 +15,8 @@ import (
 var jwtKey = []byte("eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxODE4NDIxOSwiaWF0IjoxNzE4MTg0MjE5fQ.-I4tTC7ZbMUVHE1RZnn3Rboi5G0BZupEH70xVj1DwZo")
 
 type Claims struct {
+	jwt.RegisteredClaims
 	Username string `json:"Username"`
-	jwt.StandardClaims
 }
 
 func (uc *UserController) UserLoginController(c *gin.Context) {
@@ -44,12 +44,9 @@ func (uc *UserController) UserLoginController(c *gin.Context) {
 		return
 	}
 
-	expireTime := time.Now().Add(24 * time.Hour)
-	claims := &Claims{
-		Username: user.Username,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expireTime.Unix(),
-		},
+	claims := &jwt.RegisteredClaims{
+		ExpiresAt: jwt.NewNumericDate(time.Unix(1516239022, 0)),
+		Issuer:    "test",
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

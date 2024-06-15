@@ -35,10 +35,11 @@ func SetupRouter(client *mongo.Client) *gin.Engine {
 		users.GET("/users", userController.GetUserController)
 		users.GET("/users/:id", userController.GetUserByIdController)
 	}
-	//PRODUK SECTIOn
+	//PRODUK SECTION
 	produk := r.Group("/produk")
 	{
 		produk.POST("/tambahproduk", produkController.CreateProdukController)
+		produk.GET("/produk", produkController.GetProdukController)
 	}
 	return r
 }
