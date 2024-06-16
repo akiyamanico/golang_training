@@ -2,6 +2,7 @@ package controller
 
 import (
 	"crudtraining/models"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -32,7 +33,8 @@ func (uc *UserController) UserLoginController(c *gin.Context) {
 
 	var user models.User
 	err := uc.collection.FindOne(context.Background(), bson.M{"username": loginRequest.Username}).Decode(&user)
-
+	fmt.Println(loginRequest.Username)
+	fmt.Println(loginRequest.Password)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Email atau Password Yang Anda Masukan Salah!"})
 		return
@@ -43,7 +45,6 @@ func (uc *UserController) UserLoginController(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Email atau Password Yang Anda Masukan Salah!"})
 		return
 	}
-
 	claims := &jwt.RegisteredClaims{
 		ExpiresAt: jwt.NewNumericDate(time.Unix(1516239022, 0)),
 		Issuer:    "test",
